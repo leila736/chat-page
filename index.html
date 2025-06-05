@@ -63,7 +63,7 @@
 
     <!-- تاریخ چت -->
 <div class="flex items-center justify-center my-4">
-    <div class="flex items-center w-full max-w-xl px-4">
+    <div class="flex items-center w-full max-w-5xl px-6">
       <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
       <span id="chatDate" class="mx-4 text-sm text-gray-500 whitespace-nowrap"></span>
       <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
@@ -73,18 +73,31 @@
   <script>
     feather.replace();
 
-      // نمایش تاریخ یا "امروز"
-  const chatDateEl = document.querySelector("#chatDate");
-  const now = new Date();
-  const today = new Date().toDateString();
-  const messageDate = new Date().toDateString(); // فرض: پیام امروز ارسال شده
+  // 🎯 تابع تبدیل تاریخ به "امروز" / "دیروز" / یا تاریخ شمسی کامل
+  function formatDate(date) {
+    const now = new Date();
+    const oneDay = 24 * 60 * 60 * 1000;
 
-  if (messageDate === today) {
-    chatDateEl.textContent = "امروز";
-  } else {
-    const faDate = new Intl.DateTimeFormat("fa-IR").format(new Date(messageDate));
-    chatDateEl.textContent = faDate;
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const thatDay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const diff = (today - thatDay) / oneDay;
+
+    if (diff === 0) return "امروز";
+    if (diff === 1) return "دیروز";
+
+    // تبدیل به شمسی با ماه نوشتاری
+    const faDate = new Intl.DateTimeFormat("fa-IR", {
+      day: "numeric",
+      month: "long"
+    }).format(date);
+
+    return faDate;
   }
+
+  // 📆 اعمال تاریخ در بالای چت
+  const chatDate = new Date(); // یا تاریخ دلخواه پیام (مثلاً new Date("2024-06-01"))
+  const chatDateEl = document.getElementById("chatDate");
+  chatDateEl.textContent = formatDate(chatDate);
 
   // (در مراحل بعدی تابع sendMessage رو اضافه می‌کنیم)
   </script>
