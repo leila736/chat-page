@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>چت با پشتیبانی</title>
+  <title>صفحه چت</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
@@ -24,100 +24,171 @@
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 h-screen flex flex-col">
 
-  <!-- اینجا بعداً هدر، چت، فوتر رو اضافه می‌کنیم -->
-   <header class="flex justify-between items-center bg-white dark:bg-gray-800 p-4 shadow-md">
-  <div class="flex items-center gap-3">
-    <div class="relative">
-      <img src="https://i.pravatar.cc/50?img=12" alt="پشتیبان" class="w-12 h-12 rounded-full border-2 border-white dark:border-gray-800 shadow" />
-      <span id="statusDot" class="absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white dark:border-gray-800 bg-green-500"></span>
-    </div>
-    <div>
-      <p class="text-base font-semibold">پشتیبان</p>
-      <p id="statusText" class="text-xs text-green-500 dark:text-green-400">آنلاین</p>
-    </div>
-  </div>
-
-
-
-
-
-
-  <div class="flex items-center gap-4 text-gray-700 dark:text-gray-300">
-    <button class="p-1 hover:text-blue-500"><i data-feather="phone" class="w-5 h-5"></i></button>
-    <button class="p-1 hover:text-blue-500"><i data-feather="video" class="w-5 h-5"></i></button>
-    <div class="relative">
-      <button id="menuBtn" class="p-1 hover:text-blue-500"><i data-feather="more-vertical" class="w-5 h-5"></i></button>
-      <div id="menuDropdown" class="hidden absolute left-0 top-8 w-44 bg-white dark:bg-gray-700 shadow-lg rounded text-sm z-50">
-        <ul class="divide-y divide-gray-200 dark:divide-gray-600">
-          <li class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"><i data-feather="search" class="w-4 h-4"></i> جستجو</li>
-          <li class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"><i data-feather="copy" class="w-4 h-4"></i> کپی</li>
-          <li class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"><i data-feather="trash-2" class="w-4 h-4"></i> حذف</li>
-          <li class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"><i data-feather="share-2" class="w-4 h-4"></i> اشتراک‌گذاری</li>
-          <li class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"><i data-feather="settings" class="w-4 h-4"></i> تنظیمات</li>
-        </ul>
+  <!-- هدر: اطلاعات پشتیبان و آیکون‌ها -->
+  <header class="flex justify-between items-center bg-white dark:bg-gray-800 p-4 shadow-md">
+    <div class="flex items-center gap-3">
+      <div class="relative">
+        <img src="https://i.pravatar.cc/50?img=12" alt="پشتیبان" class="w-12 h-12 rounded-full border-2 border-white dark:border-gray-800 shadow" />
+        <span id="statusDot" class="absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white dark:border-gray-800 bg-green-500"></span>
+      </div>
+      <div>
+        <p class="text-base font-semibold">پشتیبان</p>
+        <p id="statusText" class="text-xs text-green-500 dark:text-green-400">آنلاین</p>
       </div>
     </div>
-  </div>
-</header>
 
-<main id="chatArea" class="flex-1 overflow-y-auto p-4 space-y-6 bg-white dark:bg-gray-900">
-    <!-- تاریخ چت -->
-<hr class="border-t border-gray-300 dark:border-gray-600 w-full" />    
-<div class="flex items-center justify-center my-4">
-    <div class="flex items-center w-full max-w-5xl px-6">
-      <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
-      <span id="chatDate" class="mx-4 text-sm text-gray-500 whitespace-nowrap"></span>
-      <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+    <div class="flex items-center gap-4 text-gray-700 dark:text-gray-300">
+      <button class="p-1 hover:text-blue-500"><i data-feather="phone" class="w-5 h-5"></i></button>
+      <button class="p-1 hover:text-blue-500"><i data-feather="video" class="w-5 h-5"></i></button>
+      <div class="relative">
+        <button id="menuBtn" class="p-1 hover:text-blue-500"><i data-feather="more-vertical" class="w-5 h-5"></i></button>
+        <div id="menuDropdown" class="hidden absolute left-0 top-8 w-44 bg-white dark:bg-gray-700 shadow-lg rounded text-sm z-50">
+          <ul class="divide-y divide-gray-200 dark:divide-gray-600">
+            <li class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"><i data-feather="search" class="w-4 h-4"></i> جستجو</li>
+            <li class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"><i data-feather="copy" class="w-4 h-4"></i> کپی</li>
+            <li class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"><i data-feather="trash-2" class="w-4 h-4"></i> حذف</li>
+            <li class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"><i data-feather="share-2" class="w-4 h-4"></i> اشتراک‌گذاری</li>
+            <li class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"><i data-feather="settings" class="w-4 h-4"></i> تنظیمات</li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
+  </header>
 
-</main>
+  <!-- بخش اصلی چت -->
+  <main id="chatArea" class="flex-1 overflow-y-auto p-4 space-y-6 bg-white dark:bg-gray-900">
+    <!-- خط جداکننده بالای تاریخ -->
+    <hr class="border-t border-gray-300 dark:border-gray-600 w-full" />
+    
+    <!-- تاریخ چت -->
+    <div class="flex items-center justify-center my-4">
+      <div class="flex items-center w-full max-w-5xl px-6">
+        <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+        <span id="chatDate" class="mx-4 text-sm text-gray-500 whitespace-nowrap"></span>
+        <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+      </div>
+    </div>
 
-<footer class="bg-white dark:bg-gray-800 p-3 flex items-center gap-3 shadow-inner relative">
+    <!-- پیام ابتدایی پشتیبان -->
+    <div class="flex items-start gap-3 justify-start">
+      <img src="https://i.pravatar.cc/40?img=12" alt="پشتیبان" class="w-8 h-8 rounded-full" />
+      <div class="bg-white dark:bg-gray-700 rounded-lg p-3 max-w-xs text-gray-900 dark:text-gray-100">
+      سلام! چطور می‌تونم کمک کنم؟
+      </div>
+    </div>
+  </main>
+
+  <!-- فوتر: باکس ارسال پیام و آیکون‌ها -->
+  <footer class="bg-white dark:bg-gray-800 p-3 flex items-center gap-3 shadow-inner relative">
     <div class="relative flex-1">
-        <i data-feather="smile" class="absolute right-4 top-1/2 -translate-y-1/2 text-black dark:text-white w-6 h-6"></i>
-
+      <i data-feather="smile" class="absolute right-4 top-1/2 -translate-y-1/2 text-black dark:text-white w-6 h-6"></i>
       <input id="messageInput" type="text" placeholder="پیام خود را بنویسید"
         class="w-full bg-gray-100 dark:bg-gray-700 rounded-full px-4 py-2 text-gray-900 dark:text-gray-100 pr-14"
-        onkeydown="if(event.key==='Enter') sendMessage()" />
+        onkeydown="if(event.key==='Enter'){ event.preventDefault(); sendMessage(); }" />
       <button id="sendIconBtn" onclick="sendMessage()" class="absolute left-3 top-1/2 -translate-y-1/2 text-blue-500 hover:text-blue-600">
         <i data-feather="send" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- آیکون‌های کنار input -->
+    <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300 ml-2">
+      <button id="micBtn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+        <i data-feather="mic-off" class="w-5 h-5"></i>
+      </button>
+      <button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+        <i data-feather="download" class="w-5 h-5"></i>
+      </button>
+      <button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+        <i data-feather="camera" class="w-5 h-5"></i>
+      </button>
+      <button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+        <i data-feather="more-horizontal" class="w-5 h-5"></i>
       </button>
     </div>
   </footer>
 
   <script>
+    // جایگزینی آیکون‌ها
     feather.replace();
 
-  // 🎯 تابع تبدیل تاریخ به "امروز" / "دیروز" / یا تاریخ شمسی کامل
-  function formatDate(date) {
-    const now = new Date();
-    const oneDay = 24 * 60 * 60 * 1000;
+    // تبدیل تاریخ به "امروز" / "دیروز" / یا تاریخ شمسی
+    function formatDate(date) {
+      const now = new Date();
+      const oneDay = 24 * 60 * 60 * 1000;
 
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const thatDay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    const diff = (today - thatDay) / oneDay;
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const thatDay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      const diff = (today - thatDay) / oneDay;
 
-    if (diff === 0) return "امروز";
-    if (diff === 1) return "دیروز";
+      if (diff === 0) return "امروز";
+      if (diff === 1) return "دیروز";
 
-    // تبدیل به شمسی با ماه نوشتاری
-    const faDate = new Intl.DateTimeFormat("fa-IR", {
-      day: "numeric",
-      month: "long"
-    }).format(date);
+      const faDate = new Intl.DateTimeFormat("fa-IR", {
+        day: "numeric",
+        month: "long"
+      }).format(date);
 
-    return faDate;
-  }
+      return faDate;
+    }
 
-  // 📆 اعمال تاریخ در بالای چت
-  const chatDate = new Date(); // یا تاریخ دلخواه پیام (مثلاً new Date("2024-06-01"))
-  const chatDateEl = document.getElementById("chatDate");
-  chatDateEl.textContent = formatDate(chatDate);
+    // ست کردن تاریخ در بالای چت
+    const chatDate = new Date();
+    const chatDateEl = document.getElementById("chatDate");
+    chatDateEl.textContent = formatDate(chatDate);
 
-  // (در مراحل بعدی تابع sendMessage رو اضافه می‌کنیم)
+    // ارسال پیام کاربر
+    function sendMessage() {
+      const input = document.getElementById("messageInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      const chatArea = document.getElementById("chatArea");
+
+      // ساختار پیام کاربر
+      const messageWrapper = document.createElement("div");
+      messageWrapper.className = "flex items-start gap-3 justify-end";
+
+      const messageDiv = document.createElement("div");
+      messageDiv.className = "bg-blue-600 text-white rounded-lg p-3 max-w-xs break-words";
+      messageDiv.textContent = text;
+
+      const avatar = document.createElement("img");
+      avatar.src = "https://i.pravatar.cc/40?img=15"; // آواتار کاربر
+      avatar.alt = "شما";
+      avatar.className = "w-8 h-8 rounded-full";
+
+      messageWrapper.appendChild(messageDiv);
+      messageWrapper.appendChild(avatar);
+
+      chatArea.appendChild(messageWrapper);
+      chatArea.scrollTop = chatArea.scrollHeight;
+      input.value = "";
+    }
+
+    // تغییر وضعیت میکروفون (خاموش/روشن)
+    let micOn = false;
+    const micBtn = document.getElementById("micBtn");
+
+    micBtn.addEventListener("click", () => {
+      micOn = !micOn;
+      micBtn.innerHTML = `<i data-feather="${micOn ? "mic" : "mic-off"}" class="w-5 h-5"></i>`;
+      feather.replace(); // بروز رسانی آیکون
+    });
+
+    // نمایش/مخفی کردن منوی بیشتر
+    const menuBtn = document.getElementById("menuBtn");
+    const menuDropdown = document.getElementById("menuDropdown");
+
+    menuBtn.addEventListener("click", () => {
+      menuDropdown.classList.toggle("hidden");
+    });
+
+    // بستن منو با کلیک بیرون
+    document.addEventListener("click", (e) => {
+      if (!menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
+        menuDropdown.classList.add("hidden");
+      }
+    });
   </script>
-
-
 </body>
 </html>
